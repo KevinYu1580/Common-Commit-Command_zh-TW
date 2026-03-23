@@ -2,7 +2,7 @@
 
 > 一個以 **Angular Commit Message Guidelines** 為基礎的 Claude Code Skill，commit 訊息全程以**繁體中文**撰寫，並在提交後輸出可點擊的互動式結果。
 
-本 Skill 的 commit 格式以 [Angular 官方 Commit Message Guidelines](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md) 為核心規範，並參考 [Conventional Commits](https://www.conventionalcommits.org/) 的延伸，加入 `style`、`chore` 等業界常用 type，並在commit body內的各項說明加上“ - ”增加閱讀性。
+本 Skill 的 commit 格式以 [Angular 官方 Commit Message Guidelines](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md) 為核心規範，並參考 [Conventional Commits](https://www.conventionalcommits.org/) 的延伸，加入 `style`、`chore` 等業界常用 type。
 
 ---
 
@@ -86,10 +86,10 @@ cp "Common-Standard-Commit-zh-TW/SKILL.md" ~/.claude/skills/commit.md
 ```
 fix(login): 修復登入表單輸入體驗
 
- - 統一編號欄位新增 inputmode="numeric" 以在行動裝置彈出數字鍵盤、
-   maxlength="8" 限制最多 8 碼輸入。
-
- - 密碼欄位新增 name="password" 讓密碼管理器正確識別欄位。
+ - login.html：修正欄位屬性設定
+   - 統一編號欄位新增 inputmode="numeric" 以在行動裝置彈出數字鍵盤、
+maxlength="8" 限制最多 8 碼輸入
+   - 密碼欄位新增 name="password" 讓密碼管理器正確識別欄位
 
 issue #42
 ```
@@ -107,8 +107,10 @@ issue #42
 
 `feat(login): 新增 Google 登入功能`
 
-- [新增 OAuth 回調處理函式](src/auth.js#L12-L35)
-- [新增登入按鈕元件](src/components/LoginButton.vue#L1-L28)
+- [auth.js](src/auth.js#L12-L35)
+  - 新增 OAuth 回調處理函式
+- [LoginButton.vue](src/components/LoginButton.vue#L1-L28)
+  - 新增登入按鈕元件
 ```
 
 ### 圖片範例
