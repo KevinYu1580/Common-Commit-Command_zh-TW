@@ -69,15 +69,15 @@ allowed-tools: Bash(git *), TodoWrite
 
 - 說明「為什麼（Why）」做這個變更，以及「做了什麼（What）」
 - 每行不超過 **72 個字元**
-- **每個 bullet 對應一個 diff chunk（`@@` 範圍）**，說明中須標明「檔名 L起始-L結束」
-- 每個項目以 ` - ` 開頭（前有一個空格）作為前綴，每項之間空一行
+- **以檔案為單位分組**，每個檔案一條 ` - ` 開頭的 bullet，**不顯示行號**
+- 同一檔案有多個 chunk 時，各 chunk 描述列為縮排子項目（`   - `，前有三個空格）
+- 每個頂層 bullet 之間空一行
 - 例如：
   ```
-   - login.html L12-L18：統一編號欄位新增 inputmode="numeric"
-  以在行動裝置彈出數字鍵盤、maxlength="8" 限制最多 8 碼輸入
-
-   - login.html L25：密碼欄位新增 name="password"
-  讓密碼管理器正確識別欄位
+   - login.html：修正表單輸入體驗
+     - 統一編號欄位新增 inputmode="numeric" 以在行動裝置
+  彈出數字鍵盤、maxlength="8" 限制最多 8 碼輸入
+     - 密碼欄位新增 name="password" 讓密碼管理器正確識別欄位
   ```
 
 ### Footer 規則（可選）
