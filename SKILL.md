@@ -50,6 +50,7 @@ allowed-tools: Bash(git *), TodoWrite
 - `chore`：雜務（建置、設定等）
 - `perf`：改善效能
 - `revert`：撤銷先前的 commit，格式：`revert: <type>(<scope>): <原描述>`
+  Body 必須包含：`This reverts commit <SHA>`，並說明撤銷原因
 
 ### scope 範圍
 
@@ -68,12 +69,13 @@ allowed-tools: Bash(git *), TodoWrite
 
 - 說明「為什麼（Why）」做這個變更，以及「做了什麼（What）」
 - 每行不超過 **72 個字元**
-- 可分多行或多段說明
+- 若有多個修改項目，每個項目以 ` - ` 開頭（前有一個空格）作為前綴，每項之間空一行
 - 例如：
   ```
-  修正原程式碼在登入後未清除暫存狀態的問題。
-  調整項目：
-  1. auth.js，新增登出時清除 session 邏輯。
+   - 統一編號欄位新增 inputmode="numeric" 以在行動裝置彈出數字鍵盤、
+  maxlength="8" 限制最多 8 碼輸入。
+
+   - 密碼欄位新增 name="password" 讓密碼管理器正確識別欄位。
   ```
 
 ### Footer 規則（可選）
@@ -110,15 +112,15 @@ commit 成功後，以下列格式輸出結果：
 
 `<type>(<scope>): <描述>`
 
-- [<bullet 說明>](<相對檔案路徑>#L<起始行>-L<結束行>)
-- [<bullet 說明>](<相對檔案路徑>#L<起始行>-L<結束行>)
-- ...（每條 bullet 皆為可點擊連結，直接對應程式碼位置）
+- [<bullet 說明 1>](<相對檔案路徑>#L<起始行>-L<結束行>)
+- [<bullet 說明 2>](<相對檔案路徑>#L<起始行>-L<結束行>)
 
 ---
 
 ### 注意事項
 
-- 每條 bullet 說明文字必須是可點擊的 markdown 連結
+- session 中只顯示標題行（inline code 格式）與可點擊連結，**不重複顯示 Body 內容**
+- 可點擊連結的說明文字取自 commit Body 的各條列項目
 - 連結路徑使用**相對路徑**（從專案根目錄起）
 - 行號必須根據 `git show` 實際輸出，不可自行推測
 - 一個 bullet 若涉及多個檔案，可拆成多條連結
