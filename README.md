@@ -1,6 +1,9 @@
 # 📝 Common-Commit-Command_zh-TW
 
-> 一個以 **Angular Commit Message Guidelines** 為基礎的 Claude Code Command，commit 訊息全程以**繁體中文**撰寫，並在提交後輸出可點擊的互動式結果(建議使用vs code claude插件獲得最佳連結互動效果, terminal僅顯示變更行數，無法點擊跳轉)。
+> 一個以 **Angular Commit Message Guidelines** 為基礎的 Claude Code Command，commit 訊息全程以**繁體中文**撰寫，並在提交後輸出可點擊的互動式結果。
+
+> [!TIP]
+> 建議使用 **[VS Code Claude 插件](https://code.claude.com/docs/zh-TW/vs-code#vs-code-extension-vs-claude-code-cli)**以獲得最佳連結互動效果。Terminal 僅顯示變更行數，無法點擊跳轉。
 
 本 Command 的 commit 格式以 [Angular 官方 Commit Message Guidelines](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md) 為核心規範，並參考 [Conventional Commits](https://www.conventionalcommits.org/) 的延伸，加入 `style`、`chore` 等業界常用 type。
 
@@ -99,8 +102,10 @@ issue #42
 
 ## 🔗 互動式 Commit 結果
 
-提交成功後，Command 會輸出如下格式至chat session，每條變更皆為可點擊連結(建議使用vs code claude插件獲得最佳連結互動效果, terminal僅顯示變更行數，無法點擊跳轉)
-：
+提交成功後，Command 會輸出如下格式至 chat session，每條變更皆為可點擊連結：
+
+> [!TIP]
+> 建議使用 **[VS Code Claude 插件](https://code.claude.com/docs/zh-TW/vs-code#vs-code-extension-vs-claude-code-cli)**以獲得最佳連結互動效果。Terminal 僅顯示變更行數，無法點擊跳轉。
 
 ### markdown格式範例
 
