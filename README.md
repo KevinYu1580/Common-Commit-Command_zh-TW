@@ -1,11 +1,14 @@
-# 📝 Common-Commit-Command_zh-TW
+# 📝 Common-Commit-Skill_zh-TW
 
-> 一個以 **Angular Commit Message Guidelines** 為基礎的 Claude Code Command，commit 訊息全程以**繁體中文**撰寫，並在提交後輸出可點擊的互動式結果。
+> 一個以 **Angular Commit Message Guidelines** 為基礎的 Claude Code Skill，commit 訊息全程以**繁體中文**撰寫，並在提交後輸出可點擊的互動式結果。
 
 > [!TIP]
 > 建議使用 **[VS Code Claude 插件](https://code.claude.com/docs/zh-TW/vs-code#vs-code-extension-vs-claude-code-cli)**以獲得最佳連結互動效果。Terminal 僅顯示變更行數，無法點擊跳轉。
 
-本 Command 的 commit 格式以 [Angular 官方 Commit Message Guidelines](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md) 為核心規範，並參考 [Conventional Commits](https://www.conventionalcommits.org/) 的延伸，加入 `style`、`chore` 等業界常用 type。
+本 Skill 的 commit 格式以 [Angular 官方 Commit Message Guidelines](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md) 為核心規範，並參考 [Conventional Commits](https://www.conventionalcommits.org/) 的延伸，加入 `style`、`chore` 等業界常用 type。
+
+> [!NOTE]
+> 本 Skill 觸發時會由主 agent 透過 `Agent` tool 委派給 `model: "haiku"` 的 subagent 執行，以節省 token 成本。
 
 ---
 
@@ -21,20 +24,22 @@
 
 ## 🚀 安裝
 
-### 方法一：直接複製 command.md
+### 方法一：直接複製 SKILL.md
 
 ```bash
-cp command.md ~/.claude/commands/commit.md
+mkdir -p ~/.claude/skills/commit
+cp SKILL.md ~/.claude/skills/commit/SKILL.md
 ```
 
 ### 方法二：Clone 整個 Repo
 
 ```bash
-git clone https://github.com/<your-username>/Common-Commit-Command-zh-TW.git
-cp "Common-Commit-Command-zh-TW/command.md" ~/.claude/commands/commit.md
+git clone https://github.com/<your-username>/Common-Commit-Skill-zh-TW.git
+mkdir -p ~/.claude/skills/commit
+cp "Common-Commit-Skill-zh-TW/SKILL.md" ~/.claude/skills/commit/SKILL.md
 ```
 
-安裝完成後，在 Claude Code 輸入 `/commit` 即可讓agent自動分析及提交commit。
+安裝完成後，在 Claude Code 輸入 `/commit` 或直接要求建立 commit，即可觸發 Skill 自動分析及提交。
 
 ---
 
@@ -46,7 +51,7 @@ cp "Common-Commit-Command-zh-TW/command.md" ~/.claude/commands/commit.md
 /commit
 ```
 
-### Command 執行流程
+### Skill 執行流程
 
 ```
 1. 分析變更   →   git status / git diff
@@ -102,7 +107,7 @@ issue #42
 
 ## 🔗 互動式 Commit 結果
 
-提交成功後，Command 會輸出如下格式至 chat session，每條變更皆為可點擊連結：
+提交成功後，Skill 會輸出如下格式至 chat session，每條變更皆為可點擊連結：
 
 > [!TIP]
 > 建議使用 **[VS Code Claude 插件](https://code.claude.com/docs/zh-TW/vs-code#vs-code-extension-vs-claude-code-cli)**以獲得最佳連結互動效果。Terminal 僅顯示變更行數，無法點擊跳轉。
