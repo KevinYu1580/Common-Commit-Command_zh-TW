@@ -1,12 +1,30 @@
 ---
-description: 自動分析變更並建立 git commit
-model: haiku
-allowed-tools: Bash(git *), TodoWrite
+name: commit
+description: 自動分析變更並建立 git commit。當使用者要求建立 commit、產生 commit message、執行 git commit、整理變更分群提交，或輸入 /commit 時觸發。會依功能主題分群、使用 Conventional Commits 格式以繁體中文撰寫，並輸出含 chunk 行號連結的結果摘要。
 ---
+
+# Commit Skill
+
+當此 Skill 被觸發時，**主 agent 必須**透過 `Agent` tool 委派給 subagent 執行，並指定 `model: "haiku"` 以節省 token 成本。主 agent 自身**不可**直接執行下方工作流程。
+
+## 委派方式
+
+主 agent 呼叫 `Agent` tool，參數如下：
+
+- `description`: `"建立 git commit"`
+- `subagent_type`: `"general-purpose"`
+- `model`: `"haiku"`
+- `prompt`: 將下方「Subagent 工作流程」整段內容（含步驟一至步驟六）原樣作為 prompt 傳入，並附上使用者當下的訴求（若有）
+
+Subagent 完成後會回傳 commit 結果摘要，主 agent 將其原樣轉呈給使用者，**不要再額外加工或重述**。
+
+---
+
+## Subagent 工作流程
 
 請依照以下步驟建立 git commit：
 
-## 步驟一：分析變更
+### 步驟一：分析變更
 
 1. 執行 `git status` 查看所有變更檔案（不要使用 -uall）
 2. 若無任何變更，告知使用者「目前沒有需要 commit 的變更」並停止
@@ -14,7 +32,7 @@ allowed-tools: Bash(git *), TodoWrite
 4. 針對有意義的變更檔案執行 `git diff <file>` 查看具體內容
 5. 執行 `git log --oneline -5` 參考最近的 commit 風格
 
-## 步驟二：規劃 commit 策略
+### 步驟二：規劃 commit 策略
 
 依以下優先順序判斷是否需要拆分：
 
@@ -26,13 +44,13 @@ allowed-tools: Bash(git *), TodoWrite
 
 - 用 `TodoWrite` 記錄每個待完成的 commit 計畫
 
-## 步驟三：暫存檔案
+### 步驟三：暫存檔案
 
 - 逐一加入相關變更檔案（`git add <file>`）
 - **不要**使用 `git add -A` 或 `git add .`
 - **不要**加入敏感檔案（如 .env、credentials 等）
 
-## 步驟四：撰寫 commit 訊息
+### 步驟四：撰寫 commit 訊息
 
 使用 Conventional Commits 格式，訊息以**繁體中文**撰寫：
 
@@ -44,7 +62,7 @@ allowed-tools: Bash(git *), TodoWrite
 <Footer（可選）>
 ```
 
-### type 類型
+#### type 類型
 
 - `feat`：新增功能
 - `fix`：修復錯誤
@@ -57,12 +75,12 @@ allowed-tools: Bash(git *), TodoWrite
 - `revert`：撤銷先前的 commit，格式：`revert: <type>(<scope>): <原描述>`
   Body 必須包含：`This reverts commit <SHA>`，並說明撤銷原因
 
-### scope 範圍
+#### scope 範圍
 
 - 使用變更的檔案名稱或模組名稱作為 scope
 - 例如：`feat(auth)`, `fix(user-service)`, `docs(readme)`
 
-### 描述規則
+#### 描述規則
 
 - 用繁體中文簡潔描述「做了什麼」
 - **不超過 50 個字元**
@@ -70,7 +88,7 @@ allowed-tools: Bash(git *), TodoWrite
 - **不要**在描述結尾加句號
 - 例如：`feat(login): 新增登入功能`、`fix(api): 修復回傳格式錯誤`
 
-### Body 規則（可選）
+#### Body 規則（可選）
 
 - 說明「為什麼（Why）」做這個變更，以及「做了什麼（What）」
 - 每行不超過 **72 個字元**
@@ -92,12 +110,12 @@ allowed-tools: Bash(git *), TodoWrite
      - 密碼欄位新增 name="password" 讓密碼管理器正確識別欄位
   ```
 
-### Footer 規則（可選）
+#### Footer 規則（可選）
 
 - 若有對應 issue，填寫 `issue #<編號>`
 - 若有不兼容的破壞性變更，以 `BREAKING CHANGE:` 開頭說明
 
-## 步驟五：執行 commit
+### 步驟五：執行 commit
 
 使用 HEREDOC 格式執行 commit：
 
@@ -112,11 +130,11 @@ EOF
 
 若有多個 commit 計畫，依序重複步驟三至五。
 
-## 步驟六：呈現 commit 結果
+### 步驟六：呈現 commit 結果
 
 commit 成功後，以下列格式輸出結果：
 
-### 格式規則
+#### 格式規則
 
 1. 執行 `git show --stat HEAD` 取得實際變更行數
 2. 針對每個變更檔案執行 `git show HEAD -- <file> | grep "^@@"` 取得每個 chunk 的精確行號範圍
@@ -137,7 +155,7 @@ commit 成功後，以下列格式輸出結果：
 
 ---
 
-### 注意事項
+#### 注意事項
 
 - **上方須有 `---` 分隔線、`## 📝 Commit 內容` 標題、下方須有 `---` 分隔線**，不可省略
 - 以**檔案為單位**分組，每個檔案一條連結，連結文字只顯示檔名，**不加行號錨點**
